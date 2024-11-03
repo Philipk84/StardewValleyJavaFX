@@ -17,13 +17,19 @@ public class ScreenA {
 
     private Player player;
     private Cow cow;
+    private Sheep sheep;
+    private Duck duck;
     private Tree tree;
+    private Pig pig;
 
     public ScreenA(Canvas canvas) {
         this.canvas = canvas;
         this.graphicsContext = this.canvas.getGraphicsContext2D();
         this.player=new Player(this.canvas, 32, 32);
         this.cow=new Cow(this.canvas, 32,32);
+        this.sheep=new Sheep(this.canvas, 32, 32);
+        this.duck=new Duck(this.canvas, 20, 20);
+        this.pig=new Pig(this.canvas, 32, 32);
         this.tree=new Tree(this.canvas,32 ,32);
     }
 
@@ -32,6 +38,9 @@ public class ScreenA {
         graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         player.paint();
         cow.paint();
+        sheep.paint();
+        duck.paint();
+        pig.paint();
         tree.paint();
 
     }
