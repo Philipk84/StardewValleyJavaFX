@@ -1,26 +1,37 @@
 package com.example.stardewvalley.model;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
-public class Player {
+public class Player extends Entity {
 
     private Canvas canvas;
     private GraphicsContext graphicsContext;
     private ArrayList <Image> idles;
     private ArrayList <Image> runs;
+    private ArrayList <Image> attacks;
+    private ArrayList <Image> swordAttack;
+    private ArrayList <Image> runsIz;
+    private ArrayList <Image> idlesHand;
+    private ArrayList <Image> runsHand;
     private int frame;
 
-    private boolean rightPressed, leftPressed, upPressed, downPressed;
+    private boolean rightPressed, leftPressed, upPressed, downPressed, ePressed;
+
+    private int width;
+    private int height;
 
     private Position position;
     private int state;
 
-    public Player (Canvas canvas) {
+    public Player (Canvas canvas, int height, int width ) {
+        super(canvas, height, width);
         this.canvas = canvas;
         this.graphicsContext = this.canvas.getGraphicsContext2D();
         this.state=0;
@@ -28,17 +39,36 @@ public class Player {
 
         this.idles = new ArrayList<>();
         this.runs = new ArrayList<>();
+        this.attacks = new ArrayList<>();
+        this.swordAttack = new ArrayList<>();
+        this.runsIz = new ArrayList<>();
+        this.idlesHand = new ArrayList<>();
+        this.runsHand = new ArrayList<>();
 
         this.position = new Position(100,100);
 
-        for (int i = 0;i<=3;i++) {
-            Image image = new Image(getClass().getResourceAsStream("/animations.player/idle/idle_" +i+".png"), 100,100,false,false);
+        for (int i = 0;i<=8;i++) {
+            Image image = new Image(getClass().getResourceAsStream("/animations.player/idle/idle_" +i+".png"), 200,200,true,false);
             this.idles.add(image);
+            Image image2 = new Image(getClass().getResourceAsStream("/animations.player/tools_idle/idle_" +i+".png"), 200,200,true,false);
+            this.idlesHand.add(image2);
+
         }
 
-        for (int i = 0;i<=2;i++) {
-            Image image = new Image(getClass().getResourceAsStream("/animations.player/run/run_0" +i+".png"), 100,100,false,false);
+        for (int i = 0;i<=5;i++) {
+            Image image = new Image(getClass().getResourceAsStream("/animations.player/run/run_0" +i+".png"), 200,200,true,false);
             this.runs.add(image);
+            Image image2 = new Image(getClass().getResourceAsStream("/animations.player/tools_run/run_" +i+".png"), 200,200,true,false);
+            this.runsHand.add(image2);
+        }
+
+        for (int i = 0;i<=7;i++) {
+            Image image = new Image(getClass().getResourceAsStream("/animations.player/attack/attack_0" +i+".png"),200,200,true,false);
+            this.attacks.add(image);
+            Image image2 = new Image(getClass().getResourceAsStream("/animations.player/sword_attack/sword_" +i+".png"),200,200,true,false);
+            this.swordAttack.add(image2);
+            Image image3 = new Image(getClass().getResourceAsStream("/animations.player/runIz/run_0" +i+".png"),200,200,true,false);
+            this.runsIz.add(image3);
         }
 
     }
@@ -46,10 +76,20 @@ public class Player {
     public void paint(){
         onMove();
         if (state==0) {
-            graphicsContext.drawImage(idles.get(frame%3),position.getX(),position.getY());
+
+            graphicsContext.drawImage(idles.get(frame%8),position.getX(),position.getY());
+            graphicsContext.drawImage(idlesHand.get(frame%8),position.getX(),position.getY());
             frame++;
         }else if (state==1) {
-            graphicsContext.drawImage(runs.get(frame%2),position.getX(),position.getY());
+            graphicsContext.drawImage(runs.get(frame % 5), position.getX(), position.getY());
+            graphicsContext.drawImage(runsHand.get(frame % 5), position.getX(), position.getY());
+            frame++;
+        }else if (state==3){
+            graphicsContext.drawImage(runsIz.get(frame % 7), position.getX(), position.getY());
+            frame++;
+        }else if (state==2) {
+            graphicsContext.drawImage(attacks.get(frame%7),position.getX(),position.getY());
+            graphicsContext.drawImage(swordAttack.get(frame%7),position.getX(),position.getY());
             frame++;
         }
     }
@@ -65,17 +105,23 @@ public class Player {
                 downPressed=true;
             }
             case LEFT -> {
-                state=1;
+                state=3;
                 leftPressed=true;
             }
             case RIGHT -> {
                 state=1;
                 rightPressed=true;
             }
+            case E -> {
+                state=2;
+                ePressed=true;
+            }
         }
     }
 
     public void onMove(){
+        Position nextPosition = new Position(position.getX(), position.getY());
+
         if (rightPressed) {
             position.setX(position.getX()+10);
         }else if (leftPressed) {
@@ -85,6 +131,7 @@ public class Player {
         }else if (downPressed) {
             position.setY(position.getY()+10);
         }
+
     }
 
     public void onKeyReleased(KeyEvent keyEvent) {
@@ -105,7 +152,12 @@ public class Player {
                 state=0;
                 rightPressed=false;
             }
+            case E -> {
+                state=0;
+                ePressed=false;
+            }
         }
     }
+
 
 }
