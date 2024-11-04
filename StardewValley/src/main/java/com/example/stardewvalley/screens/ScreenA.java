@@ -18,20 +18,32 @@ public class ScreenA{
 
 
     private Player player;
-    private Cow cow;
-    private Sheep sheep;
+    private List<Cow> cows;
+    private List<Sheep> sheeps;
     private Duck duck;
     private Tree tree;
-    private Pig pig;
+    private List<Pig> pigs;
 
     public ScreenA(Canvas canvas) {
         this.canvas = canvas;
         this.graphicsContext = this.canvas.getGraphicsContext2D();
         this.player=new Player(this.canvas, 32, 32);
-        this.cow=new Cow(this.canvas, 32,32);
-        this.sheep=new Sheep(this.canvas, 32, 32);
+
+        this.cows=new ArrayList<>();
+        addCow();
+        addCow();
+        addCow();
+
+        this.sheeps= new ArrayList<>();
+        this.sheeps.add(new Sheep(this.canvas, 60, 60));
+        this.sheeps.add(new Sheep(this.canvas, 60, 60));
+
         this.duck=new Duck(this.canvas, 20, 20);
-        this.pig=new Pig(this.canvas, 32, 32);
+
+        this.pigs = new ArrayList<>();
+        this.pigs.add(new Pig(this.canvas, 60, 60));
+        this.pigs.add(new Pig(this.canvas, 60, 60));
+
         this.tree=new Tree(this.canvas,32 ,32);
     }
 
@@ -48,10 +60,15 @@ public class ScreenA{
     }
 
     public void paintAnimals() {
-        cow.paint();
-        sheep.paint();
-        duck.paint();
-        pig.paint();
+        for (Cow cow : cows) {
+            cow.paint();
+        }
+        for (Sheep sheep : sheeps) {
+            sheep.paint();
+        }
+        for (Pig pig : pigs) {
+            pig.paint();
+        }
     }
 
     public void onKeyPressed(KeyEvent e) {
@@ -60,6 +77,17 @@ public class ScreenA{
 
     public void onKeyReleased(KeyEvent e) {
         this.player.onKeyReleased(e);
+    }
+
+    public void addCow() {
+
+        double randomX = Math.random() * (canvas.getWidth() - 60); // Ajusta 32 por el ancho de la vaca
+        double randomY = Math.random() * (canvas.getHeight() - 60); // Ajusta 32 por la altura de la vaca
+
+        Cow newCow = new Cow(this.canvas, 60, 60);
+        newCow.setPosition(randomX, randomY);
+
+        cows.add(newCow);
     }
 
 

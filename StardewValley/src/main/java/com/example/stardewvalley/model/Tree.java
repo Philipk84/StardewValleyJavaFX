@@ -34,10 +34,6 @@ public class Tree extends Entity {
         }
     }
 
-    public Rectangle getBounds() {
-        return new Rectangle(position.getX(), position.getY(), width, height);
-    }
-
     public void paint() {
         this.graphicsContext.drawImage(idles.get(frame%3), position.getX(), position.getY());
         frame++;

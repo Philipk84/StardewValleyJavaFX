@@ -40,7 +40,4 @@ public class Duck extends Entity{
         frame++;
     }
 
-    public Rectangle getBounds() {
-        return new Rectangle(position.getX(), position.getY(), width, height);
-    }
 }

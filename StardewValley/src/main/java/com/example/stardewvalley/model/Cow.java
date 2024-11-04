@@ -42,8 +42,11 @@ public class Cow extends Entity{
         this.facingRight = false;
         this.waiting = false;
 
+        this.width=width;
+        this.height=height;
+
         for (int i = 0; i <= 3; i++) {
-            Image image = new Image(getClass().getResourceAsStream("/animations.animals/cow/idle/idle_" + i + ".png"), 60, 60, true, false);
+            Image image = new Image(getClass().getResourceAsStream("/animations.animals/cow/idle/idle_" + i + ".png"), height, width, true, false);
             this.idles.add(image);
         }
 
@@ -64,8 +67,8 @@ public class Cow extends Entity{
     }
 
     private void setNewTargetPosition() {
-        double randomX = rand.nextDouble() * (canvas.getWidth() - width - 32);
-        double randomY = rand.nextDouble() * (canvas.getHeight() - height - 32);
+        double randomX = rand.nextDouble() * (canvas.getWidth() - width);
+        double randomY = rand.nextDouble() * (canvas.getHeight() - height);
         targetPosition.setX(randomX);
         targetPosition.setY(randomY);
 
@@ -107,8 +110,6 @@ public class Cow extends Entity{
         }
     }
 
-    public Rectangle getBounds() {
-        return new Rectangle(position.getX(), position.getY(), width, height);
-    }
+
 
 }
