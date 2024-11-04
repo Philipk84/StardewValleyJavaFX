@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScreenA{
+public class ScreenA extends BaseScreen{
 
     private Canvas canvas;
 
