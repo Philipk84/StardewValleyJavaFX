@@ -9,11 +9,13 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScreenA {
+public class ScreenA{
 
     private Canvas canvas;
 
     private GraphicsContext graphicsContext;
+
+
 
     private Player player;
     private Cow cow;
@@ -36,13 +38,20 @@ public class ScreenA {
     public void paint() {
         graphicsContext.setFill(Color.GREEN);
         graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        tree.paint();
+        paintPlayer();
+        paintAnimals();
+    }
+
+    public void paintPlayer() {
         player.paint();
+    }
+
+    public void paintAnimals() {
         cow.paint();
         sheep.paint();
         duck.paint();
         pig.paint();
-        tree.paint();
-
     }
 
     public void onKeyPressed(KeyEvent e) {

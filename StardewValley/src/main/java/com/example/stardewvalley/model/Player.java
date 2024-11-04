@@ -29,6 +29,7 @@ public class Player extends Entity {
 
     private Position position;
     private int state;
+    private boolean isFacingLeft;
 
     public Player (Canvas canvas, int height, int width ) {
         super(canvas, height, width);
@@ -75,23 +76,56 @@ public class Player extends Entity {
 
     public void paint(){
         onMove();
-        if (state==0) {
+        if (isFacingLeft) {
+            graphicsContext.save();
+            graphicsContext.scale(-1, 1);
 
-            graphicsContext.drawImage(idles.get(frame%8),position.getX(),position.getY());
-            graphicsContext.drawImage(idlesHand.get(frame%8),position.getX(),position.getY());
-            frame++;
-        }else if (state==1) {
-            graphicsContext.drawImage(runs.get(frame % 5), position.getX(), position.getY());
-            graphicsContext.drawImage(runsHand.get(frame % 5), position.getX(), position.getY());
-            frame++;
-        }else if (state==3){
-            graphicsContext.drawImage(runsIz.get(frame % 7), position.getX(), position.getY());
-            frame++;
-        }else if (state==2) {
-            graphicsContext.drawImage(attacks.get(frame%7),position.getX(),position.getY());
-            graphicsContext.drawImage(swordAttack.get(frame%7),position.getX(),position.getY());
-            frame++;
+            if (state==0) {
+                graphicsContext.drawImage(idles.get(frame%8),-position.getX()-idles.get(frame%8).getWidth(),position.getY());
+                graphicsContext.drawImage(idlesHand.get(frame%8),-position.getX()-idlesHand.get(frame%8).getWidth(),position.getY());
+                frame++;
+            }else if (state==1) {
+                graphicsContext.drawImage(runs.get(frame % 5), -position.getX()-runs.get(frame%5).getWidth(), position.getY());
+                graphicsContext.drawImage(runsHand.get(frame % 5), -position.getX()-runsHand.get(frame%5).getWidth(), position.getY());
+                frame++;
+            }else if (state==3){
+                graphicsContext.drawImage(runs.get(frame % 5), -position.getX()-runs.get(frame%5).getWidth(), position.getY());
+                graphicsContext.drawImage(runsHand.get(frame % 5), -position.getX()-runsHand.get(frame%5).getWidth(), position.getY());
+                frame++;
+            }else if (state==2) {
+                graphicsContext.drawImage(attacks.get(frame%7),-position.getX()-attacks.get(frame%7).getWidth(),position.getY());
+                graphicsContext.drawImage(swordAttack.get(frame%7),-position.getX()-swordAttack.get(frame%7).getWidth(),position.getY());
+                frame++;
+            }
+
+            graphicsContext.restore();
         }
+        else {
+            if (state==0) {
+                graphicsContext.drawImage(idles.get(frame%8),position.getX(),position.getY());
+                graphicsContext.drawImage(idlesHand.get(frame%8),position.getX(),position.getY());
+                frame++;
+            }else if (state==1) {
+                graphicsContext.drawImage(runs.get(frame % 5), position.getX(), position.getY());
+                graphicsContext.drawImage(runsHand.get(frame % 5), position.getX(), position.getY());
+                frame++;
+            }else if (state==3){
+                graphicsContext.save();
+                graphicsContext.scale(-1,1);
+                graphicsContext.drawImage(runs.get(frame % 5), -position.getX()-runs.get(frame%5).getWidth(), position.getY());
+                graphicsContext.drawImage(runsHand.get(frame % 5), -position.getX()-runsHand.get(frame%5).getWidth(), position.getY());
+
+                frame++;
+                graphicsContext.restore();
+            }else if (state==2) {
+                graphicsContext.drawImage(attacks.get(frame%7),position.getX(),position.getY());
+                graphicsContext.drawImage(swordAttack.get(frame%7),position.getX(),position.getY());
+                frame++;
+            }
+        }
+
+
+
     }
 
     public void onKeyPressed(KeyEvent keyEvent) {
@@ -107,10 +141,12 @@ public class Player extends Entity {
             case LEFT -> {
                 state=3;
                 leftPressed=true;
+                isFacingLeft=true;
             }
             case RIGHT -> {
                 state=1;
                 rightPressed=true;
+                isFacingLeft=false;
             }
             case E -> {
                 state=2;
@@ -155,6 +191,7 @@ public class Player extends Entity {
             case E -> {
                 state=0;
                 ePressed=false;
+
             }
         }
     }

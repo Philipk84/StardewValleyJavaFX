@@ -32,7 +32,7 @@ public class HelloController implements Initializable {
         new Thread( ()->{
                     while(true){
                         Platform.runLater(()->{
-                            screenA.paint();
+                            screenA.paintPlayer();
                         });
                         try {
                             Thread.sleep(50);

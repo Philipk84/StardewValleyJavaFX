@@ -25,6 +25,8 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        canvas.setHeight(400);
+        canvas.setWidth(600);
         this.graphicsContext = canvas.getGraphicsContext2D();
         this.screenA= new ScreenA(this.canvas);
 
@@ -35,20 +37,26 @@ public class GameController implements Initializable {
         this.canvas.setOnKeyReleased(event -> {
             screenA.onKeyReleased(event);
         });
-        new Thread( ()->{
-                    while(true){
-                        Platform.runLater(()->{
-                            screenA.paint();
 
-                        });
-                        try {
-                            Thread.sleep(100);
-                        }catch (InterruptedException e){
-                            e.printStackTrace();
-                        }
-                    }
-            }
-        ).start();
+       Thread gameThread = new Thread( ()->{
+           while(true){
+               Platform.runLater(()->{
+                   screenA.paint();
+
+               });
+               try {
+                   Thread.sleep(100);
+               }catch (InterruptedException e){
+                   e.printStackTrace();
+               }
+           }
+       });
+
+        gameThread.setDaemon(true);
+        gameThread.start();
+
     }
+
+
 
 }
