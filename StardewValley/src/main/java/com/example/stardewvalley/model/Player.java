@@ -5,6 +5,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
@@ -122,10 +123,15 @@ public class Player extends Entity {
                 graphicsContext.drawImage(swordAttack.get(frame%7),position.getX(),position.getY());
                 frame++;
             }
+
         }
 
+        graphicsContext.setFill(Color.BLACK);
+        graphicsContext.strokeRect(position.getX()+83, position.getY()+47, 35, 35);
 
-
+    }
+    public Rectangle getRectangle() {
+        return new Rectangle(position.getX()+83, position.getY()+47, 35, 35);
     }
 
     public void onKeyPressed(KeyEvent keyEvent) {
@@ -167,7 +173,6 @@ public class Player extends Entity {
         }else if (downPressed) {
             position.setY(position.getY()+10);
         }
-
     }
 
     public void onKeyReleased(KeyEvent keyEvent) {
@@ -196,5 +201,31 @@ public class Player extends Entity {
         }
     }
 
+    public void colisionCowVerify(Cow cow) {
+        if( this.getRectangle().getBoundsInLocal().intersects(cow.getRectangle().getBoundsInLocal())){
+            if (upPressed) {
+                upPressed = false;     // Detiene el movimiento hacia arriba
+            } else if (downPressed) {
+                downPressed = false;   // Detiene el movimiento hacia abajo
+            } else if (leftPressed) {
+                leftPressed = false;   // Detiene el movimiento hacia la izquierda
+            } else if (rightPressed) {
+                rightPressed = false;  // Detiene el movimiento hacia la derecha
+            }
+        }
+    }
+    public void colisionPigVerify(Pig pig){
+        if( this.getRectangle().getBoundsInLocal().intersects(pig.getRectangle().getBoundsInLocal())){
+            if (upPressed) {
+                upPressed = false;     // Detiene el movimiento hacia arriba
+            } else if (downPressed) {
+                downPressed = false;   // Detiene el movimiento hacia abajo
+            } else if (leftPressed) {
+                leftPressed = false;   // Detiene el movimiento hacia la izquierda
+            } else if (rightPressed) {
+                rightPressed = false;  // Detiene el movimiento hacia la derecha
+            }
+        }
+    }
 
 }

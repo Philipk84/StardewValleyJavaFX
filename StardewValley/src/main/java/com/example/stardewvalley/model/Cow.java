@@ -4,6 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
@@ -64,6 +65,11 @@ public class Cow extends Entity{
             graphicsContext.drawImage(idles.get(frame % 4), position.getX(), position.getY());
         }
         frame++;
+        graphicsContext.setFill(Color.BLACK);
+        graphicsContext.strokeRect(position.getX()+10, position.getY()+10, 40, 40);
+    }
+    public Rectangle getRectangle() {
+        return new Rectangle(position.getX()+10, position.getY()+10, 40, 40);
     }
 
     private void setNewTargetPosition() {

@@ -41,10 +41,7 @@ public class Sheep extends Entity {
         this.graphicsContext.drawImage(idles.get(frame%3), position.getX(), position.getY());
         frame++;
         graphicsContext.setFill(Color.BLACK);
-        graphicsContext.strokeRect(position.getX(), position.getY(), 60, 60);
+        graphicsContext.strokeRect(position.getX()+10, position.getY()+10, 40, 40);
     }
 
-    public Rectangle getBounds() {
-        return new Rectangle(position.getX(), position.getY(), width, height);
-    }
 }
