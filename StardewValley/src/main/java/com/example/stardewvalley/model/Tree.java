@@ -3,6 +3,7 @@ package com.example.stardewvalley.model;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
@@ -37,6 +38,11 @@ public class Tree extends Entity {
     public void paint() {
         this.graphicsContext.drawImage(idles.get(frame%3), position.getX(), position.getY());
         frame++;
+        graphicsContext.setFill(Color.BLACK);
+        graphicsContext.strokeRect(position.getX()+20, position.getY()+20, 58, 120);
+    }
+    public Rectangle getRectangle() {
+        return new Rectangle(position.getX()+20, position.getY()+20, 58, 120);
     }
 
 }

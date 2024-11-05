@@ -1,5 +1,7 @@
 package com.example.stardewvalley.model;
 
+import com.example.stardewvalley.controller.HelloController;
+import com.example.stardewvalley.screens.BaseScreen;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -31,6 +33,7 @@ public class Player extends Entity {
     private Position position;
     private int state;
     private boolean isFacingLeft;
+    private boolean isCollidingWithTree = false;
 
     public Player (Canvas canvas, int height, int width ) {
         super(canvas, height, width);
@@ -227,5 +230,21 @@ public class Player extends Entity {
             }
         }
     }
+    public void colisionTreeVerify(Tree tree){
+        if( this.getRectangle().getBoundsInLocal().intersects(tree.getRectangle().getBoundsInLocal())){
+            if (upPressed) {
+                upPressed=false;
+                HelloController.SCREEN_ID=1;
+            } else if (downPressed) {
+                downPressed = false;   // Detiene el movimiento hacia abajo
+            } else if (leftPressed) {
+                leftPressed = false;   // Detiene el movimiento hacia la izquierda
+            } else if (rightPressed) {
+                rightPressed = false;  // Detiene el movimiento hacia la derecha
+            }
+        }
+    }
+
+
 
 }
