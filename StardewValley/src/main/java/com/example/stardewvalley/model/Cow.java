@@ -72,6 +72,12 @@ public class Cow extends Entity{
         return new Rectangle(position.getX()+10, position.getY()+10, 40, 40);
     }
 
+    public void verifyColision(Entity entity) {
+        if(this.getRectangle().getBoundsInLocal().intersects(entity.getRectangle().getBoundsInLocal())){
+            setNewTargetPosition();
+        }
+    }
+
     private void setNewTargetPosition() {
         double randomX = rand.nextDouble() * (canvas.getWidth() - width);
         double randomY = rand.nextDouble() * (canvas.getHeight() - height);

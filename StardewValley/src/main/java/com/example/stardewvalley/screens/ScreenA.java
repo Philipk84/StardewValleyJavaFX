@@ -54,9 +54,11 @@ public class ScreenA extends BaseScreen {
     public void paintPlayer() {
         for (Cow cow : cows) {
             player.colisionCowVerify(cow);
+            cow.verifyColision(player);
         }
         for (Pig pig : pigs) {
             player.colisionPigVerify(pig);
+            pig.verifyColision(player);
         }
         player.colisionTreeVerify(tree);
         player.paint();

@@ -40,4 +40,14 @@ public class Duck extends Entity{
         frame++;
     }
 
+    @Override
+    public Rectangle getRectangle() {
+        return null;
+    }
+
+    @Override
+    public void verifyColision(Entity entity) {
+
+    }
+
 }

@@ -45,4 +45,9 @@ public class Tree extends Entity {
         return new Rectangle(position.getX()+20, position.getY()+20, 58, 120);
     }
 
+    @Override
+    public void verifyColision(Entity entity) {
+
+    }
+
 }

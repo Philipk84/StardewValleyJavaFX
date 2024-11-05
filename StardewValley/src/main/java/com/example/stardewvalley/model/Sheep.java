@@ -44,4 +44,14 @@ public class Sheep extends Entity {
         graphicsContext.strokeRect(position.getX()+10, position.getY()+10, 40, 40);
     }
 
+    @Override
+    public Rectangle getRectangle() {
+        return new Rectangle(position.getX()+10, position.getY()+10, 40, 40);
+    }
+
+    @Override
+    public void verifyColision(Entity entity) {
+
+    }
+
 }

@@ -137,6 +137,11 @@ public class Player extends Entity {
         return new Rectangle(position.getX()+83, position.getY()+47, 35, 35);
     }
 
+    @Override
+    public void verifyColision(Entity entity) {
+
+    }
+
     public void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
             case UP -> {
@@ -160,7 +165,12 @@ public class Player extends Entity {
             case E -> {
                 state=2;
                 ePressed=true;
+            }case T -> {
+                if(isCollidingWithTree){
+                    HelloController.SCREEN_ID=1;
+                }
             }
+
         }
     }
 
@@ -234,13 +244,13 @@ public class Player extends Entity {
         if( this.getRectangle().getBoundsInLocal().intersects(tree.getRectangle().getBoundsInLocal())){
             if (upPressed) {
                 upPressed=false;
-                HelloController.SCREEN_ID=1;
+                isCollidingWithTree=true;
             } else if (downPressed) {
-                downPressed = false;   // Detiene el movimiento hacia abajo
+                downPressed = false;
             } else if (leftPressed) {
-                leftPressed = false;   // Detiene el movimiento hacia la izquierda
+                leftPressed = false;
             } else if (rightPressed) {
-                rightPressed = false;  // Detiene el movimiento hacia la derecha
+                rightPressed = false;
             }
         }
     }

@@ -39,10 +39,10 @@ public class HelloController implements Initializable {
         this.canvas.setOnKeyReleased(event -> {
             screens.get(SCREEN_ID).onKeyReleased(event);
         });
-        new Thread( ()->{
+         Thread hola=new Thread( ()->{
                     while(isRunning) {
                         Platform.runLater(()->{
-                            screens.get(SCREEN_ID).paint();
+                            paint(SCREEN_ID);
                         });
                         try {
                             Thread.sleep(50);
@@ -51,7 +51,19 @@ public class HelloController implements Initializable {
                         }
                     }
             }
-        ).start();
+        );
+         hola.setDaemon(true);
+         hola.start();
+
+
+
+    }
+    public void paint(int SCREEN_ID){
+        setScreenId(SCREEN_ID);
+        screens.get(SCREEN_ID).paint();
+    }
+    public void setScreenId(int SCREEN_ID){
+        this.SCREEN_ID = SCREEN_ID;
     }
 
 }

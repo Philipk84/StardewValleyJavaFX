@@ -116,4 +116,11 @@ public class Pig extends Entity {
         }
     }
 
+    @Override
+    public void verifyColision(Entity entity) {
+        if(this.getRectangle().getBoundsInLocal().intersects(entity.getRectangle().getBoundsInLocal())){
+            setNewTargetPosition();
+        }
+    }
+
 }

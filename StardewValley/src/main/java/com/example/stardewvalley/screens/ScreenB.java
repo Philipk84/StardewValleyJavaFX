@@ -19,7 +19,7 @@ public class ScreenB extends BaseScreen{
 
     @Override
     public void paint() {
-        graphicsContext.setFill(Color.GREEN);
+        graphicsContext.setFill(Color.BLACK);
         graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         player.paint();
     }

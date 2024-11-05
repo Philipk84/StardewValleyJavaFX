@@ -105,6 +105,9 @@ public abstract class Entity {
         position.setY(y);
     }
 
+    public abstract Rectangle getRectangle();
+
+    public abstract void verifyColision(Entity entity);
 
 
 }
